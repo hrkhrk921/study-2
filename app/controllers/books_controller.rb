@@ -53,9 +53,6 @@ before_action :baria_user, only: [:edit, :update]
   def book_params
   	params.require(:book).permit(:title,:body)
   end
-  def user_params
-    params.require(:user).permit(:name, :introduction, :profile_image)
-  end
   #url直接防止　メソッドを自己定義してbefore_actionで発動。
   def baria_user
    unless Book.find(params[:id]).user.id.to_i == current_user.id
