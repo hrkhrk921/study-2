@@ -1,18 +1,23 @@
 class BooksController < ApplicationController
+before_action :authenticate_user!
+before_action :baria_user, only: [:edit, :update]
 
   def show
   	@book = Book.find(params[:id])
   end
 
   def index
+    @book = Book.new
   	@books = Book.all #一覧表示するためにBookモデルの情報を全てくださいのall
   end
 
   def create
   	@book = Book.new(book_params) #Bookモデルのテーブルを使用しているのでbookコントローラで保存する。
+    @book.user_id = current_user.id
   	if @book.save #入力されたデータをdbに保存する。
   		redirect_to @book, notice: "successfully created book!"#保存された場合の移動先を指定。
   	else
+      notice = "error"
   		@books = Book.all
   		render 'index'
   	end
@@ -20,6 +25,10 @@ class BooksController < ApplicationController
 
   def edit
   	@book = Book.find(params[:id])
+    @user = current_user
+    unless @book.user_id == current_user.id
+      redirect_to books_path
+    end
   end
 
 
@@ -42,7 +51,17 @@ class BooksController < ApplicationController
   private
 
   def book_params
-  	params.require(:book).permit(:title)
+  	params.require(:book).permit(:title,:body)
   end
+  def user_params
+    params.require(:user).permit(:name, :introduction, :profile_image)
+  end
+  #url直接防止　メソッドを自己定義してbefore_actionで発動。
+  def baria_user
+   unless Book.find(params[:id]).user.id.to_i == current_user.id
+    redirect_to books_path
+  end
+end
+
 
 end

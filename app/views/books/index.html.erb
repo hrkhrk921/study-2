@@ -1,3 +1,13 @@
+<div class="body">
+<% if @book.errors.any? %>
+		<h3><%= @book.errors.count %>errors</h3><!--エラーメッセ-->
+		<ul>
+		<% @book.errors.full_messages.each do |message| %>
+		<li><%= message %></li>
+		<% end %>
+	    </ul>
+ <% end %>
+<div class="container">
 <div class="row">
 	<div class="col-xs-3">
 
@@ -42,4 +52,6 @@
 
 
 	</div>
+</div>
+</div>
 </div>
