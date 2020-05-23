@@ -1,12 +1,5 @@
 <div class="body">
-	<% if @book.errors.any? %>
-		<h3><%= @book.errors.count %>errors</h3><!--エラーメッセ-->
-		<ul>
-		<% @book.errors.full_messages.each do |message| %>
-		<li><%= message %></li>
-		<% end %>
-	    </ul>
-	    <% end %>
+<%= render "layouts/bookerror", book: @book %>
 <div class="container">
 <div class="row">
 	<div class="col-xs-3">
