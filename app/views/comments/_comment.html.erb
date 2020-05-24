@@ -15,13 +15,12 @@
               </td>
               <td>
                 <%= t.body %>
-              <td>
-
-              <td>
-                <% if @comment.user_id == current_user.id %>
-                  <%= link_to "delete", @comment , method: :delete %>
-                <% end %>
               </td>
+              <td>
+                <% link_to "DELETE", book_comment_path(book_id: @book.id, comment_id: @comment.id), method: :delete %>
+              </td>
+
+             
             </tr>
           <% end %>
         </table>

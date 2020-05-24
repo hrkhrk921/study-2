@@ -5,7 +5,7 @@ before_action :baria_user, only: [:edit, :update]
   def show
   	@book = Book.find(params[:id])
     @comments = @book.comments
-    @comment = @book.comments.build
+    @comment = Comment.new
   end
 
   def index
@@ -44,9 +44,9 @@ before_action :baria_user, only: [:edit, :update]
   	end
   end
 
-  def delete
+  def destroy
   	@book = Book.find(params[:id])
-  	@book.destoy
+  	@book.destroy
   	redirect_to books_path, notice: "successfully delete book!"
   end
 
