@@ -1,0 +1,27 @@
+
+<%= form_for [@book, @comment] do |f| %>
+          <%= f.text_area :body %>
+          <%= f.submit %>
+        <% end %>
+
+        <table class="table">
+          <% @comments.each do |t| %>
+            <tr>
+              <td>
+                <% unless t.user.blank? %>
+                <%= attachment_image_tag(t.user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg") %>
+                <% end %>
+                <%= t.user.name unless t.user.blank? %>
+              </td>
+              <td>
+                <%= t.body %>
+              <td>
+
+              <td>
+                <% if @comment.user_id == current_user.id %>
+                  <%= link_to "delete", @comment , method: :delete %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </table>
